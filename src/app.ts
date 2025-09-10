@@ -12,14 +12,15 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "*", // Allow all origins (you can restrict to your frontend URL later)
+    origin: "*", // or your frontend domain: "https://your-frontend.com"
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.options("*", cors());
+// app.options("*", cors());
 
 // Routes
 // app.use("/api", adminRoutes);
