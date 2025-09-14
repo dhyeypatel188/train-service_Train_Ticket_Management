@@ -174,10 +174,11 @@ export class TrainScheduleRepository {
   }
 
   async findByStationId(stationId: string) {
+    console.log(stationId);
     const result = await query(
       `SELECT * FROM ${this.tableName} 
-       WHERE station_id = $1
-       ORDER BY departure_time ASC`,
+        WHERE station_id = $1
+        ORDER BY departure_time ASC`,
       [stationId]
     );
     return result.rows;

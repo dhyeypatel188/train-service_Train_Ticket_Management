@@ -167,13 +167,13 @@ export class TrainScheduleService {
     const [hours] = departureTime.split(":");
     const hoursNum = parseInt(hours, 10);
 
-    if (hoursNum < 12) {
-      // Example: End stations typically end in the afternoon/evening
-      throw new CustomException(
-        400,
-        "End station departure time should typically be in the afternoon or evening"
-      );
-    }
+    // if (hoursNum < 12) {
+    // Example: End stations typically end in the afternoon/evening
+    // throw new CustomException(
+    //   400,
+    //   "End station departure time should typically be in the afternoon or evening"
+    // );
+    // }
   }
 
   async findById(id: string) {

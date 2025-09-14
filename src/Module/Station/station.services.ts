@@ -3,14 +3,16 @@ import { CustomException } from "../../exception/custom.exception";
 import { StationRepository } from "./station.repository";
 import { CreateStationDto, UpdateStationDto } from "./station.dto";
 import { stat } from "fs";
+import { TrainScheduleRepository } from "../TrainSchedule/train-schedule.repository";
 
 const SALT_ROUNDS = 10;
 
 export class StationService {
   private stationRepository: StationRepository;
-
+  private trainScheduleRepository: TrainScheduleRepository;
   constructor() {
     this.stationRepository = new StationRepository();
+    this.trainScheduleRepository = new TrainScheduleRepository()
   }
 
   async createStation(dto: CreateStationDto) {
@@ -74,6 +76,13 @@ export class StationService {
     const station = await this.stationRepository.findStationById(station_id);
     if (!station) {
       throw new CustomException(400, "Station not found");
+    }
+    console.log(station_id);
+    const schedules =
+      await this.trainScheduleRepository.findByStationId(station_id);
+    console.log(schedules);
+    for (const schedule of schedules) {
+      await this.trainScheduleRepository.delete(schedule.schedule_id);
     }
     await this.stationRepository.deleteStation(station_id);
   }
